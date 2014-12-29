@@ -39,7 +39,7 @@ architecture Behavioral of onesecond is
 signal 	temperal : STD_LOGIC;
 begin
 	process (CLK)
-	variable count : unsigned (31 downto 0);
+	variable count : unsigned (22 downto 0);
 	begin
 		if(CLK'event and CLK='1') then
 			-- Count the clock pulses
