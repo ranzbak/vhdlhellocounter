@@ -1,0 +1,35 @@
+# Clock input
+NET "CLK" LOC = P40;
+NET "CLK" TNM_NET = CLK;
+TIMESPEC TS_CLK = PERIOD "CLK" 12 MHz HIGH 50%;
+
+# DIP Button Switches.
+# Internall pull-ups need to be enabled since 
+# there is no pull-up resistor available on board
+#NET dip[0] PULLUP;
+#NET dip[1] PULLUP;
+#NET dip[2] PULLUP;
+#NET dip[3] PULLUP;
+#NET dip[0] LOC = P88;
+#NET dip[1] LOC = P89;
+#NET dip[2] LOC = P90;
+#NET dip[3] LOC = P93;
+# Onboard LEDs
+NET blink LOC = P3;
+NET invert LOC = P4;
+
+#NET display[3] LOC = P3;
+# Generic IOs on connector IO1
+NET display[3] LOC = P59;
+NET display[2] LOC = P60;
+NET display[1] LOC = P61;
+NET display[0] LOC = P62;
+
+# Generic IOs on connector IO2
+NET display[7] LOC = P64;
+NET display[6] LOC = P65;
+NET display[5] LOC = P70;
+NET display[4] LOC = P71;
+#Created by Constraints Editor (xc3s50a-vq100-4) - 2014/12/27
+NET "onesecond_0/temperal" TNM_NET = onesecond_0/temperal;
+TIMESPEC TS_onesecond_0_temperal = PERIOD "onesecond_0/temperal" 20 ns HIGH 50%;
