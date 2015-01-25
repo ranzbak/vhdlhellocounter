@@ -38,8 +38,9 @@ entity topmodule is
 end topmodule;
 
 architecture Behavioral of topmodule is
-	signal sigsecond: std_logic;
-	signal dip: std_logic_vector (3 downto 0);
+	signal sigsecond: 	std_logic;
+	signal count: 			unsigned (3 downto 0);
+	signal count_next:	unsigned (3 downto 0);
 begin
 	-- Instantiate the one second pulse generator
 	onesecond_0: entity work.onesecond
@@ -47,24 +48,20 @@ begin
 	
 	-- Instantiate the binary decoder
 	display_0: entity work.decode4bit
-		port map(dip=>dip, display=>display);
+		port map(dip=>std_logic_vector(count), display=>display);
 	
-	-- Could be in a module as well
+	-- On clock rising edge, go to next state
 	process (sigsecond)
-	variable count: unsigned (3 downto 0);
 	begin
 		-- every beginning of the 1 second cycle..
 		if(sigsecond'event and sigsecond='1') then
 			-- Increase the counter
-			count := count + 1;
+			count<=count_next;
 		end if;
-		
-		-- Assign the counter to the output register.
-		dip <= std_logic_vector(count);
 	end process;
-
-	-- Assign the counter to the output register
-
+	
+	-- To next state
+	count_next <= count + 1;
 	
 	-- Blink some pretty lights
 	blink <= sigsecond;

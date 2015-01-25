@@ -37,20 +37,25 @@ end onesecond;
 
 architecture Behavioral of onesecond is
 signal 	temperal : STD_LOGIC;
+signal count : unsigned (22 downto 0);
+signal count_next  : unsigned (22 downto 0);
 begin
 	process (CLK)
-	variable count : unsigned (22 downto 0);
+
 	begin
 		if(CLK'event and CLK='1') then
 			-- Count the clock pulses
-			count := count + 1;
-			-- Every half a second invert the second pulse
-			if ( count = 6000000) then
-				count := (others => '0');
-				temperal <= NOT (temperal);
-			end if;
+			count <= count_next;
 		end if;
 	end process;
+	
+	-- Wrap around at 6000000 / every half a second 
+	count_next <=
+		(others=>'0') when count=6000000 else
+		count + 1;
+	-- Invert signal at the same time
+	temperal <=
+		NOT (temperal) when count=0;
 	
 	onesecond <= temperal;
 end Behavioral;
